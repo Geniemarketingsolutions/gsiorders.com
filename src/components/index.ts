@@ -1,14 +1,5 @@
 export { default as Footer } from './Footer';
-export { default as EducationalBlogCards } from './EducationalBlogCards';
-export { default as CustomerSupportCard } from './CustomerSupportCard';
-export { default as ComplianceGrid } from './ComplianceGrid';
-export { default as ShopByMoodSection } from './ShopByMoodSection';
-export { default as FarmerStorySection } from './FarmerStorySection';
-export { default as ReviewHighlight } from './ReviewHighlight';
-export { default as RewardsCTA } from './RewardsCTA';
-export { default as ProductGrid } from './ProductGrid';
 export { default as UseCaseFilterBar } from './UseCaseFilterBar';
-export { default as CategoryGrid } from './CategoryGrid';
 export { default as LocationGateModal } from './LocationGateModal';
 export { default as MainNavbar } from './MainNavbar';
 export { default as MegaMenuDropdown } from './MegaMenuDropdown';
