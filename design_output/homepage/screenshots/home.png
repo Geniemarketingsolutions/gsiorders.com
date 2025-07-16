@@ -1,0 +1,12 @@
+
+      <svg width="1920" height="1080" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1920" height="1080" fill="#f8fafc"/>
+        <rect x="0" y="0" width="1920" height="80" fill="#ffffff" stroke="#e5e7eb"/>
+        <text x="80" y="50" fill="#1f2937" font-family="Arial" font-size="24" font-weight="bold">mood.com</text>
+        <rect x="0" y="80" width="1920" height="600" fill="#10b981"/>
+        <text x="960" y="380" fill="#ffffff" font-family="Arial" font-size="48" text-anchor="middle" font-weight="bold">Premium Cannabis</text>
+        <text x="960" y="430" fill="#ffffff" font-family="Arial" font-size="24" text-anchor="middle">Quality Products, Lab Tested</text>
+        <rect x="0" y="680" width="1920" height="400" fill="#f9fafb"/>
+        <text x="960" y="880" fill="#1f2937" font-family="Arial" font-size="32" text-anchor="middle">Featured Products</text>
+      </svg>
+    
