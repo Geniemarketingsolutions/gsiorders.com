@@ -1,0 +1,32 @@
+{
+  "id": "hero-01",
+  "title": "Implement mood.com-style Hero Section",
+  "priority": "high",
+  "component": "HeroSection",
+  "estimatedHours": 4,
+  "description": "Create compelling hero section with large typography, legal messaging, and dual CTA strategy like mood.com",
+  "acceptanceCriteria": [
+    "Large impact typography with gradient effects",
+    "Legal compliance messaging (\"100% Federally Legal\")",
+    "Trust indicators (lab tested, FDA compliant)",
+    "Dual CTA buttons (Shop Now + Learn More)",
+    "Background with subtle animations",
+    "Mobile responsive layout"
+  ],
+  "technicalRequirements": [
+    "CSS gradients for text effects",
+    "Framer Motion for animations",
+    "shadcn/ui Button components",
+    "Responsive typography scaling",
+    "GSI Orders brand integration"
+  ],
+  "files": [
+    "src/components/HeroSection.tsx",
+    "__tests__/components/HeroSection.test.tsx"
+  ],
+  "dependencies": [
+    "brand CSS variables",
+    "Button components"
+  ],
+  "branch": "feat/hero-section"
+}

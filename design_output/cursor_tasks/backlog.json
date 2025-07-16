@@ -1,0 +1,174 @@
+{
+  "metadata": {
+    "generated": "2025-07-16T19:01:30.938Z",
+    "granularity": "micro",
+    "totalTasks": 5,
+    "estimatedHours": 18
+  },
+  "summary": {
+    "highPriority": 3,
+    "mediumPriority": 1,
+    "lowPriority": 1
+  },
+  "tasks": [
+    {
+      "id": "hero-01",
+      "title": "Implement mood.com-style Hero Section",
+      "priority": "high",
+      "component": "HeroSection",
+      "estimatedHours": 4,
+      "description": "Create compelling hero section with large typography, legal messaging, and dual CTA strategy like mood.com",
+      "acceptanceCriteria": [
+        "Large impact typography with gradient effects",
+        "Legal compliance messaging (\"100% Federally Legal\")",
+        "Trust indicators (lab tested, FDA compliant)",
+        "Dual CTA buttons (Shop Now + Learn More)",
+        "Background with subtle animations",
+        "Mobile responsive layout"
+      ],
+      "technicalRequirements": [
+        "CSS gradients for text effects",
+        "Framer Motion for animations",
+        "shadcn/ui Button components",
+        "Responsive typography scaling",
+        "GSI Orders brand integration"
+      ],
+      "files": [
+        "src/components/HeroSection.tsx",
+        "__tests__/components/HeroSection.test.tsx"
+      ],
+      "dependencies": [
+        "brand CSS variables",
+        "Button components"
+      ],
+      "branch": "feat/hero-section"
+    },
+    {
+      "id": "navbar-01",
+      "title": "Implement Professional Cannabis Navigation Bar",
+      "priority": "high",
+      "component": "Navbar",
+      "estimatedHours": 3,
+      "description": "Create a professional navigation bar inspired by mood.com with logo, main navigation, cart icon, and user account dropdown",
+      "acceptanceCriteria": [
+        "Logo displays correctly with brand colors",
+        "Navigation menu includes: Shop, Learn, About, Contact",
+        "Cart icon shows item count and opens cart modal",
+        "User account dropdown with login/register options",
+        "Mobile responsive with hamburger menu",
+        "Sticky navigation on scroll"
+      ],
+      "technicalRequirements": [
+        "Use Next.js Link components for navigation",
+        "Implement cart state with useCart hook",
+        "Add shadcn/ui components for dropdowns",
+        "Responsive design with Tailwind CSS",
+        "TypeScript interfaces for all props"
+      ],
+      "files": [
+        "src/components/Navbar.tsx",
+        "__tests__/components/Navbar.test.tsx"
+      ],
+      "dependencies": [
+        "useCart hook",
+        "brand theming CSS"
+      ],
+      "branch": "feat/navbar-implementation"
+    },
+    {
+      "id": "product-grid-01",
+      "title": "Implement Enhanced Product Grid",
+      "priority": "high",
+      "component": "ProductGrid",
+      "estimatedHours": 5,
+      "description": "Create mood.com-style product grid with enhanced ProductCard components, filtering, and pagination",
+      "acceptanceCriteria": [
+        "Responsive grid layout (1-4 columns)",
+        "Enhanced ProductCard with hover effects",
+        "Quick view and quick add functionality",
+        "Product filtering by category/brand",
+        "Pagination with load more button",
+        "Loading skeleton states"
+      ],
+      "technicalRequirements": [
+        "Enhanced ProductCard component",
+        "State management for filters",
+        "API integration for product data",
+        "Intersection Observer for lazy loading",
+        "TypeScript interfaces for products"
+      ],
+      "files": [
+        "src/components/ProductGrid.tsx",
+        "src/components/ProductCard.tsx",
+        "__tests__/components/ProductGrid.test.tsx"
+      ],
+      "dependencies": [
+        "ProductCard component",
+        "products API"
+      ],
+      "branch": "feat/product-grid"
+    },
+    {
+      "id": "cart-modal-01",
+      "title": "Implement Professional Cart Modal",
+      "priority": "medium",
+      "component": "CartModal",
+      "estimatedHours": 4,
+      "description": "Create slide-out cart modal with quantity controls, shipping calculator, and checkout flow",
+      "acceptanceCriteria": [
+        "Slide-out drawer animation",
+        "Cart items with quantity controls",
+        "Shipping calculator with ZIP input",
+        "Promo code functionality",
+        "Age verification integration",
+        "Smooth mobile experience"
+      ],
+      "technicalRequirements": [
+        "shadcn/ui Dialog components",
+        "Cart state management",
+        "Form validation for shipping",
+        "Checkout flow integration",
+        "Mobile-optimized layout"
+      ],
+      "files": [
+        "src/components/CartModal.tsx",
+        "__tests__/components/CartModal.test.tsx"
+      ],
+      "dependencies": [
+        "useCart hook",
+        "checkout API"
+      ],
+      "branch": "feat/cart-modal"
+    },
+    {
+      "id": "footer-01",
+      "title": "Implement Comprehensive Footer",
+      "priority": "low",
+      "component": "Footer",
+      "estimatedHours": 2,
+      "description": "Create comprehensive footer with links, legal info, and brand information",
+      "acceptanceCriteria": [
+        "Organized link sections",
+        "Legal compliance links",
+        "Social media icons",
+        "Newsletter signup",
+        "Brand information",
+        "Mobile responsive"
+      ],
+      "technicalRequirements": [
+        "Next.js Link components",
+        "Email validation for newsletter",
+        "Social media icon integration",
+        "Responsive column layout"
+      ],
+      "files": [
+        "src/components/Footer.tsx",
+        "__tests__/components/Footer.test.tsx"
+      ],
+      "dependencies": [
+        "brand theming"
+      ],
+      "branch": "feat/footer"
+    }
+  ]
+}

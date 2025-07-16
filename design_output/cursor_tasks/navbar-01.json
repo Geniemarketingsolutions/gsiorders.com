@@ -1,0 +1,32 @@
+{
+  "id": "navbar-01",
+  "title": "Implement Professional Cannabis Navigation Bar",
+  "priority": "high",
+  "component": "Navbar",
+  "estimatedHours": 3,
+  "description": "Create a professional navigation bar inspired by mood.com with logo, main navigation, cart icon, and user account dropdown",
+  "acceptanceCriteria": [
+    "Logo displays correctly with brand colors",
+    "Navigation menu includes: Shop, Learn, About, Contact",
+    "Cart icon shows item count and opens cart modal",
+    "User account dropdown with login/register options",
+    "Mobile responsive with hamburger menu",
+    "Sticky navigation on scroll"
+  ],
+  "technicalRequirements": [
+    "Use Next.js Link components for navigation",
+    "Implement cart state with useCart hook",
+    "Add shadcn/ui components for dropdowns",
+    "Responsive design with Tailwind CSS",
+    "TypeScript interfaces for all props"
+  ],
+  "files": [
+    "src/components/Navbar.tsx",
+    "__tests__/components/Navbar.test.tsx"
+  ],
+  "dependencies": [
+    "useCart hook",
+    "brand theming CSS"
+  ],
+  "branch": "feat/navbar-implementation"
+}

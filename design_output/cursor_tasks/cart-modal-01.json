@@ -1,0 +1,32 @@
+{
+  "id": "cart-modal-01",
+  "title": "Implement Professional Cart Modal",
+  "priority": "medium",
+  "component": "CartModal",
+  "estimatedHours": 4,
+  "description": "Create slide-out cart modal with quantity controls, shipping calculator, and checkout flow",
+  "acceptanceCriteria": [
+    "Slide-out drawer animation",
+    "Cart items with quantity controls",
+    "Shipping calculator with ZIP input",
+    "Promo code functionality",
+    "Age verification integration",
+    "Smooth mobile experience"
+  ],
+  "technicalRequirements": [
+    "shadcn/ui Dialog components",
+    "Cart state management",
+    "Form validation for shipping",
+    "Checkout flow integration",
+    "Mobile-optimized layout"
+  ],
+  "files": [
+    "src/components/CartModal.tsx",
+    "__tests__/components/CartModal.test.tsx"
+  ],
+  "dependencies": [
+    "useCart hook",
+    "checkout API"
+  ],
+  "branch": "feat/cart-modal"
+}
