@@ -1,0 +1,124 @@
+{
+  "timestamp": "2025-01-16T18:35:00.000Z",
+  "target_url": "https://mood.com",
+  "design_system": "GSI Orders",
+  "styled_wireframe": {
+    "brand_theme": {
+      "primary_color": "#10b981",
+      "secondary_color": "#ec4899", 
+      "accent_color": "#6366f1",
+      "typography": "Inter",
+      "brand_pills": ["Liquid Heaven", "Motaquila", "Last Genie"]
+    },
+    "components_styled": 16,
+    "styling_applied": true,
+    "sections_styled": [
+      {
+        "id": "header",
+        "name": "Header Navigation",
+        "styling": {
+          "background": "#1f2937",
+          "text_color": "#e5e7eb",
+          "brand_logo": "#10b981",
+          "brand_pills": {
+            "liquidheaven": "#10b981",
+            "motaquila": "#ec4899",
+            "lastgenie": "#6366f1"
+          }
+        }
+      },
+      {
+        "id": "hero",
+        "name": "Hero Section", 
+        "styling": {
+          "background": "linear-gradient(135deg, #10b981 0%, #ec4899 50%, #6366f1 100%)",
+          "opacity": "0.1",
+          "text_color": "#1f2937",
+          "buttons": {
+            "primary": "#10b981",
+            "secondary": "transparent border #10b981"
+          }
+        }
+      },
+      {
+        "id": "products",
+        "name": "Featured Products",
+        "styling": {
+          "background": "#f9fafb",
+          "cards": {
+            "background": "white",
+            "shadow": "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))",
+            "border_radius": "16px",
+            "brand_badges": {
+              "liquidheaven": "#10b981",
+              "motaquila": "#ec4899", 
+              "lastgenie": "#6366f1",
+              "multi_brand": "#f59e0b"
+            }
+          }
+        }
+      },
+      {
+        "id": "trust",
+        "name": "Trust Indicators",
+        "styling": {
+          "badges": {
+            "fda_compliant": "#10b981",
+            "lab_tested": "#10b981",
+            "secure_checkout": "#10b981"
+          }
+        }
+      },
+      {
+        "id": "footer",
+        "name": "Footer",
+        "styling": {
+          "background": "#1f2937",
+          "text_color": "#9ca3af",
+          "brand_name": "#10b981",
+          "color_palette": ["#10b981", "#ec4899", "#6366f1"]
+        }
+      }
+    ],
+    "design_tokens": {
+      "colors": {
+        "brand": {
+          "primary": "#10b981",
+          "secondary": "#ec4899", 
+          "accent": "#6366f1"
+        },
+        "neutral": {
+          "gray_50": "#f9fafb",
+          "gray_900": "#1f2937"
+        }
+      },
+      "typography": {
+        "font_family": "Inter",
+        "font_weights": {
+          "normal": 400,
+          "semibold": 600,
+          "bold": 700
+        }
+      },
+      "spacing": {
+        "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+        "section": "py-20",
+        "component": "p-6"
+      },
+      "border_radius": {
+        "card": "16px",
+        "button": "25px",
+        "pill": "15px"
+      }
+    }
+  },
+  "validation": {
+    "brand_consistency": true,
+    "design_system_applied": true,
+    "components_themed": 16,
+    "sections_styled": 5,
+    "gsi_orders_branding": true,
+    "multi_brand_support": true
+  },
+  "output_ready": true
+} 

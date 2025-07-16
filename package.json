@@ -17,7 +17,11 @@
     "design-pipeline:parallel": "tsx scripts/run-design-pipeline.ts https://mood.com --parallel",
     "design-pipeline:quick": "tsx scripts/run-design-pipeline.ts https://mood.com --skip-steps=8",
     "design-pipeline:smoke": "tsx scripts/smoke-test.ts",
-    "crew:health": "curl -f http://localhost:8001/health || echo 'CrewAI service not running'"
+    "crew:setup": "bash setup-crewai.sh",
+    "crew:setup-win": "setup-crewai.bat",
+    "crew:health": "curl -f http://localhost:8001/health || echo 'CrewAI service not running'",
+    "crew:start": "cd python-service && source venv/bin/activate && python app.py",
+    "crew:install": "cd python-service && python -m venv venv && source venv/bin/activate && pip install -r ../requirements.txt"
   },
   "repository": {
     "type": "git",

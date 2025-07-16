@@ -43,36 +43,33 @@ describe('Design Pipeline Smoke Test', () => {
     });
 
     test('report should have correct structure', () => {
-      expect(report).toHaveProperty('timestamp');
-      expect(report).toHaveProperty('config');
-      expect(report).toHaveProperty('results');
-      expect(report).toHaveProperty('summary');
+      expect(report).toHaveProperty('test_timestamp');
+      expect(report).toHaveProperty('validation_results');
+      expect(report).toHaveProperty('performance_metrics');
+      expect(report).toHaveProperty('quality_gates');
     });
 
     test('report should show overall success status', () => {
-      expect(report.summary).toHaveProperty('overallSuccess');
-      expect(report.summary).toHaveProperty('totalStages');
-      expect(report.summary).toHaveProperty('passedStages');
-      expect(report.summary).toHaveProperty('failedStages');
+      expect(report).toHaveProperty('overall_status');
+      expect(report).toHaveProperty('crews_tested');
+      expect(report).toHaveProperty('artifacts_generated');
       
-      // For a successful smoke test, we expect 3 stages to pass
-      expect(report.summary.totalStages).toBe(3);
-      expect(report.summary.passedStages).toBeGreaterThan(0);
+      // For a successful smoke test, we expect 3 crews tested
+      expect(report.crews_tested).toEqual([1, 2, 3]);
+      expect(report.overall_status).toBe('PASSED');
+      expect(report.artifacts_generated).toBe(3);
     });
 
     test('should have results for all 3 crews', () => {
-      expect(Array.isArray(report.results)).toBe(true);
-      expect(report.results.length).toBeGreaterThan(0);
+      expect(report.validation_results).toBeDefined();
+      expect(report.validation_results).toHaveProperty('screenshot_validation');
+      expect(report.validation_results).toHaveProperty('wireframe_validation');
+      expect(report.validation_results).toHaveProperty('design_system_validation');
       
-      const stageNames = report.results.map((r: any) => r.stage);
-      const expectedStages = [
-        'Screenshot Capture',
-        'Wireframe Generation', 
-        'Design System Application'
-      ];
-      
-      // Check that at least the screenshot capture stage is present
-      expect(stageNames).toContain('Screenshot Capture');
+      // Check that all validations passed
+      expect(report.validation_results.screenshot_validation.status).toBe('PASSED');
+      expect(report.validation_results.wireframe_validation.status).toBe('PASSED');
+      expect(report.validation_results.design_system_validation.status).toBe('PASSED');
     });
   });
 

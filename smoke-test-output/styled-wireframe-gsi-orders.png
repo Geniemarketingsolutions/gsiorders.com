@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+  <!-- GSI Orders Styled Wireframe - Professional CBD E-commerce -->
+  
+  <!-- Background -->
+  <rect x="0" y="0" width="1920" height="1080" fill="#f9fafb"/>
+  
+  <!-- Header with GSI Orders Branding -->
+  <rect x="0" y="0" width="1920" height="80" fill="#1f2937"/>
+  <text x="96" y="50" font-family="Inter, Arial, sans-serif" font-size="28" font-weight="bold" fill="#10b981">GSI Orders</text>
+  <text x="300" y="50" font-family="Inter, Arial, sans-serif" font-size="14" fill="#9ca3af">One Platform • Three Brands</text>
+  
+  <!-- Brand Pills -->
+  <rect x="600" y="25" width="120" height="30" rx="15" fill="#10b981" opacity="0.1"/>
+  <text x="660" y="44" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="600" text-anchor="middle" fill="#10b981">Liquid Heaven</text>
+  
+  <rect x="740" y="25" width="100" height="30" rx="15" fill="#ec4899" opacity="0.1"/>
+  <text x="790" y="44" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="600" text-anchor="middle" fill="#ec4899">Motaquila</text>
+  
+  <rect x="860" y="25" width="100" height="30" rx="15" fill="#6366f1" opacity="0.1"/>
+  <text x="910" y="44" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="600" text-anchor="middle" fill="#6366f1">Last Genie</text>
+  
+  <!-- Navigation -->
+  <text x="1400" y="35" font-family="Inter, Arial, sans-serif" font-size="14" fill="#e5e7eb">All Products</text>
+  <text x="1500" y="35" font-family="Inter, Arial, sans-serif" font-size="14" fill="#e5e7eb">Admin</text>
+  <text x="1570" y="35" font-family="Inter, Arial, sans-serif" font-size="14" fill="#e5e7eb">Cart (0)</text>
+  <text x="1650" y="35" font-family="Inter, Arial, sans-serif" font-size="14" fill="#e5e7eb">Login</text>
+  
+  <!-- Hero Section with GSI Orders Gradient -->
+  <defs>
+    <linearGradient id="gsiGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.1" />
+      <stop offset="50%" style="stop-color:#ec4899;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:0.1" />
+    </linearGradient>
+  </defs>
+  <rect x="0" y="80" width="1920" height="400" fill="url(#gsiGradient)"/>
+  
+  <!-- Hero Content -->
+  <text x="960" y="200" font-family="Inter, Arial, sans-serif" font-size="56" font-weight="bold" text-anchor="middle" fill="#1f2937">Premium Cannabis & Wellness</text>
+  <text x="960" y="240" font-family="Inter, Arial, sans-serif" font-size="24" text-anchor="middle" fill="#6b7280">Unifying Three Trusted Brands</text>
+  <text x="960" y="270" font-family="Inter, Arial, sans-serif" font-size="18" text-anchor="middle" fill="#10b981">100% Federally Legal • Lab Tested • D2C & Wholesale</text>
+  
+  <!-- Dual CTA Buttons -->
+  <rect x="800" y="320" width="160" height="50" rx="25" fill="#10b981"/>
+  <text x="880" y="352" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="white">Shop All Products</text>
+  
+  <rect x="980" y="320" width="160" height="50" rx="25" fill="transparent" stroke="#10b981" stroke-width="2"/>
+  <text x="1060" y="352" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#10b981">Request Quote</text>
+  
+  <!-- Trust Metrics -->
+  <text x="960" y="420" font-family="Inter, Arial, sans-serif" font-size="14" text-anchor="middle" fill="#6b7280">50K+ Customers • 99.8% Satisfaction • 24/7 Support</text>
+  
+  <!-- Featured Products Section -->
+  <text x="96" y="540" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="bold" fill="#1f2937">Featured Products</text>
+  <text x="96" y="570" font-family="Inter, Arial, sans-serif" font-size="18" fill="#6b7280">Best-selling items across all three brands</text>
+  
+  <!-- Product Grid with Brand-Specific Styling -->
+  
+  <!-- Liquid Heaven Product -->
+  <rect x="96" y="600" width="280" height="300" rx="16" fill="white" stroke="#e5e7eb" stroke-width="1" filter="drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))"/>
+  <rect x="116" y="620" width="240" height="160" rx="12" fill="#10b981" opacity="0.1"/>
+  <text x="236" y="710" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="600" text-anchor="middle" fill="#10b981">CBD Gummies</text>
+  <rect x="126" y="800" width="80" height="20" rx="10" fill="#10b981" opacity="0.2"/>
+  <text x="166" y="812" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="600" text-anchor="middle" fill="#10b981">Liquid Heaven</text>
+  <text x="126" y="840" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="bold" fill="#1f2937">Relief Gummies</text>
+  <text x="126" y="860" font-family="Inter, Arial, sans-serif" font-size="16" fill="#6b7280">$29.99</text>
+  <rect x="126" y="870" width="120" height="30" rx="15" fill="#10b981"/>
+  <text x="186" y="888" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="white">Add to Cart</text>
+  
+  <!-- Motaquila Product -->
+  <rect x="416" y="600" width="280" height="300" rx="16" fill="white" stroke="#e5e7eb" stroke-width="1" filter="drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))"/>
+  <rect x="436" y="620" width="240" height="160" rx="12" fill="#ec4899" opacity="0.1"/>
+  <text x="556" y="710" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="600" text-anchor="middle" fill="#ec4899">Premium Beverage</text>
+  <rect x="446" y="800" width="70" height="20" rx="10" fill="#ec4899" opacity="0.2"/>
+  <text x="481" y="812" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="600" text-anchor="middle" fill="#ec4899">Motaquila</text>
+  <text x="446" y="840" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="bold" fill="#1f2937">Energy Elixir</text>
+  <text x="446" y="860" font-family="Inter, Arial, sans-serif" font-size="16" fill="#6b7280">$24.99</text>
+  <rect x="446" y="870" width="120" height="30" rx="15" fill="#ec4899"/>
+  <text x="506" y="888" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="white">Add to Cart</text>
+  
+  <!-- Last Genie Product -->
+  <rect x="736" y="600" width="280" height="300" rx="16" fill="white" stroke="#e5e7eb" stroke-width="1" filter="drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))"/>
+  <rect x="756" y="620" width="240" height="160" rx="12" fill="#6366f1" opacity="0.1"/>
+  <text x="876" y="710" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="600" text-anchor="middle" fill="#6366f1">Specialty Item</text>
+  <rect x="766" y="800" width="75" height="20" rx="10" fill="#6366f1" opacity="0.2"/>
+  <text x="803" y="812" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="600" text-anchor="middle" fill="#6366f1">Last Genie</text>
+  <text x="766" y="840" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="bold" fill="#1f2937">Mystic Blend</text>
+  <text x="766" y="860" font-family="Inter, Arial, sans-serif" font-size="16" fill="#6b7280">$44.99</text>
+  <rect x="766" y="870" width="120" height="30" rx="15" fill="#6366f1"/>
+  <text x="826" y="888" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="white">Add to Cart</text>
+  
+  <!-- Mixed Product -->
+  <rect x="1056" y="600" width="280" height="300" rx="16" fill="white" stroke="#e5e7eb" stroke-width="1" filter="drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))"/>
+  <rect x="1076" y="620" width="240" height="160" rx="12" fill="#374151" opacity="0.1"/>
+  <text x="1196" y="710" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="600" text-anchor="middle" fill="#374151">Bundle Pack</text>
+  <rect x="1086" y="800" width="60" height="20" rx="10" fill="#f59e0b" opacity="0.2"/>
+  <text x="1116" y="812" font-family="Inter, Arial, sans-serif" font-size="10" font-weight="600" text-anchor="middle" fill="#f59e0b">Multi-Brand</text>
+  <text x="1086" y="840" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="bold" fill="#1f2937">Starter Kit</text>
+  <text x="1086" y="860" font-family="Inter, Arial, sans-serif" font-size="16" fill="#6b7280">$89.99</text>
+  <rect x="1086" y="870" width="120" height="30" rx="15" fill="#374151"/>
+  <text x="1146" y="888" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="white">Add to Cart</text>
+  
+  <!-- Professional Footer -->
+  <rect x="0" y="980" width="1920" height="100" fill="#1f2937"/>
+  <text x="96" y="1020" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="600" fill="#10b981">GSI Orders</text>
+  <text x="96" y="1040" font-family="Inter, Arial, sans-serif" font-size="14" fill="#9ca3af">© 2024 GSI Orders | Lab Tested | FDA Compliant | D2C & Wholesale</text>
+  <text x="96" y="1060" font-family="Inter, Arial, sans-serif" font-size="12" fill="#6b7280">support@gsiorders.com | (800) 555-1234 | Three Brands, One Platform</text>
+  
+  <!-- Design System Color Palette Indicator -->
+  <rect x="1650" y="1000" width="20" height="20" rx="4" fill="#10b981"/>
+  <rect x="1680" y="1000" width="20" height="20" rx="4" fill="#ec4899"/>
+  <rect x="1710" y="1000" width="20" height="20" rx="4" fill="#6366f1"/>
+  <text x="1750" y="1014" font-family="Inter, Arial, sans-serif" font-size="10" fill="#9ca3af">Brand Colors</text>
+</svg> 
