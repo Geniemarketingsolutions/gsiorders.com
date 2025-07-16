@@ -1,0 +1,315 @@
+name: Design Pipeline Smoke Test
+
+on:
+  # Trigger on pull requests to main branch
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'src/utils/crew.ts'
+      - 'scripts/smoke-test.ts'
+      - '__tests__/pipeline.smoke.test.ts'
+      - '.github/workflows/design-pipeline-smoke.yml'
+  
+  # Allow manual trigger
+  workflow_dispatch:
+    inputs:
+      target_site:
+        description: 'Target site URL'
+        required: false
+        default: 'https://mood.com'
+      
+  # Run weekly to ensure pipeline health
+  schedule:
+    - cron: '0 6 * * 1' # Every Monday at 6 AM UTC
+
+env:
+  NODE_VERSION: '18'
+  SMOKE_OUTPUT_DIR: './smoke-test-output'
+
+jobs:
+  smoke-test:
+    name: Pipeline Smoke Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          
+      - name: Install Dependencies
+        run: |
+          npm ci
+          echo "✅ Node.js dependencies installed"
+          
+      - name: Setup Python for CrewAI
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          
+      - name: Install CrewAI Dependencies
+        run: |
+          pip install --upgrade pip
+          pip install crewai==0.28.8 crewai[tools] fastapi uvicorn
+          echo "✅ CrewAI dependencies installed"
+          
+      - name: Setup CrewAI Service
+        run: |
+          # Create minimal CrewAI service for testing
+          cat > crewai_service.py << 'EOF'
+          from fastapi import FastAPI
+          from pydantic import BaseModel
+          import uvicorn
+          import json
+          import os
+          from typing import List, Dict, Any
+          
+          app = FastAPI()
+          
+          class CrewRequest(BaseModel):
+              agents: List[Dict[str, Any]]
+              tasks: List[Dict[str, Any]]
+              inputs: Dict[str, Any] = {}
+              process: str = "sequential"
+          
+          @app.get("/health")
+          async def health_check():
+              return {"status": "healthy", "service": "CrewAI Mock"}
+          
+          @app.post("/api/crew/run")
+          async def run_crew(request: CrewRequest):
+              # Mock implementation for smoke test
+              task_description = request.tasks[0]["description"] if request.tasks else ""
+              
+              # Simulate different crew responses based on task
+              if "screenshot" in task_description.lower():
+                  # Mock screenshot capture
+                  output_dir = request.inputs.get("output_directory", "./smoke-test-output/screenshots")
+                  os.makedirs(output_dir, exist_ok=True)
+                  
+                  # Create mock screenshot file
+                  mock_screenshot = os.path.join(output_dir, "mood-homepage.png")
+                  with open(mock_screenshot, "wb") as f:
+                      f.write(b"PNG mock data" * 1000)  # ~13KB mock PNG
+                  
+                  return {
+                      "success": True,
+                      "result": {
+                          "screenshots_captured": 1,
+                          "output_directory": output_dir
+                      }
+                  }
+              
+              elif "wireframe" in task_description.lower():
+                  # Mock wireframe generation
+                  output_dir = request.inputs.get("output_directory", "./smoke-test-output/wireframes")
+                  os.makedirs(output_dir, exist_ok=True)
+                  
+                  # Create mock wireframe JSON
+                  wireframe_data = {
+                      "page": "homepage",
+                      "components": [
+                          {"type": "header", "position": {"x": 0, "y": 0, "width": 1920, "height": 80}},
+                          {"type": "navigation", "position": {"x": 0, "y": 80, "width": 1920, "height": 60}},
+                          {"type": "hero", "position": {"x": 0, "y": 140, "width": 1920, "height": 600}},
+                          {"type": "product_grid", "position": {"x": 100, "y": 800, "width": 1720, "height": 800}},
+                          {"type": "product_card", "position": {"x": 100, "y": 800, "width": 400, "height": 300}},
+                          {"type": "product_card", "position": {"x": 520, "y": 800, "width": 400, "height": 300}},
+                          {"type": "product_card", "position": {"x": 940, "y": 800, "width": 400, "height": 300}},
+                          {"type": "product_card", "position": {"x": 1360, "y": 800, "width": 400, "height": 300}},
+                          {"type": "button", "position": {"x": 150, "y": 1050, "width": 120, "height": 40}},
+                          {"type": "button", "position": {"x": 570, "y": 1050, "width": 120, "height": 40}},
+                          {"type": "text_block", "position": {"x": 100, "y": 1700, "width": 1720, "height": 200}},
+                          {"type": "image", "position": {"x": 200, "y": 850, "width": 200, "height": 150}},
+                          {"type": "form", "position": {"x": 1400, "y": 1900, "width": 400, "height": 200}},
+                          {"type": "sidebar", "position": {"x": 1600, "y": 200, "width": 300, "height": 1000}},
+                          {"type": "footer", "position": {"x": 0, "y": 2100, "width": 1920, "height": 200}},
+                          {"type": "footer", "position": {"x": 0, "y": 2300, "width": 1920, "height": 100}}
+                      ],
+                      "sections": [
+                          {"type": "header", "components": 2},
+                          {"type": "hero", "components": 1},
+                          {"type": "products", "components": 6},
+                          {"type": "content", "components": 4},
+                          {"type": "footer", "components": 2}
+                      ]
+                  }
+                  
+                  mock_wireframe = os.path.join(output_dir, "mood-homepage-wireframe.json")
+                  with open(mock_wireframe, "w") as f:
+                      json.dump(wireframe_data, f, indent=2)
+                  
+                  return {
+                      "success": True,
+                      "result": {
+                          "wireframes_generated": 1,
+                          "components_detected": len(wireframe_data["components"]),
+                          "sections_identified": len(wireframe_data["sections"])
+                      }
+                  }
+              
+              elif "design system" in task_description.lower():
+                  # Mock design system application
+                  output_dir = request.inputs.get("output_directory", "./smoke-test-output/styled-wireframes")
+                  os.makedirs(output_dir, exist_ok=True)
+                  
+                  # Create mock styled wireframe
+                  styled_data = {
+                      "page": "homepage",
+                      "brand": "GSI Orders",
+                      "styled_components": [
+                          {"type": "header", "classes": "bg-emerald-600 text-white py-4"},
+                          {"type": "hero", "classes": "bg-gradient-to-r from-emerald-500 to-blue-600 py-20"},
+                          {"type": "product_card", "classes": "bg-white rounded-lg shadow-md p-4 hover:shadow-lg"},
+                          {"type": "button", "classes": "bg-emerald-600 text-white px-6 py-2 rounded-md hover:bg-emerald-700"}
+                      ]
+                  }
+                  
+                  mock_styled = os.path.join(output_dir, "mood-homepage-styled.json")
+                  with open(mock_styled, "w") as f:
+                      json.dump(styled_data, f, indent=2)
+                  
+                  return {
+                      "success": True,
+                      "result": {
+                          "styled_wireframes": 1,
+                          "brand_applied": "GSI Orders"
+                      }
+                  }
+              
+              return {"success": False, "error": "Unknown task type"}
+          
+          if __name__ == "__main__":
+              uvicorn.run(app, host="0.0.0.0", port=8001)
+          EOF
+          
+          echo "✅ CrewAI mock service created"
+          
+      - name: Start CrewAI Service
+        run: |
+          python crewai_service.py &
+          CREWAI_PID=$!
+          echo "CREWAI_PID=$CREWAI_PID" >> $GITHUB_ENV
+          
+          # Wait for service to start
+          sleep 5
+          
+          # Health check
+          curl -f http://localhost:8001/health || exit 1
+          echo "✅ CrewAI service is running"
+          
+      - name: Run TypeScript Compilation Check
+        run: |
+          npm run type-check
+          echo "✅ TypeScript compilation successful"
+          
+      - name: Run Smoke Test
+        run: |
+          echo "🧪 Starting Design Pipeline Smoke Test..."
+          npm run design-pipeline:smoke
+          echo "✅ Smoke test completed"
+          
+      - name: Validate Test Artifacts
+        run: |
+          echo "🔍 Validating smoke test artifacts..."
+          
+          # Check that output directory exists
+          if [ ! -d "$SMOKE_OUTPUT_DIR" ]; then
+            echo "❌ Smoke test output directory not found"
+            exit 1
+          fi
+          
+          # Check for smoke test report
+          if [ ! -f "$SMOKE_OUTPUT_DIR/smoke-test-report.json" ]; then
+            echo "❌ Smoke test report not found"
+            exit 1
+          fi
+          
+          # Validate report content
+          node -e "
+            const fs = require('fs');
+            const report = JSON.parse(fs.readFileSync('$SMOKE_OUTPUT_DIR/smoke-test-report.json', 'utf8'));
+            
+            console.log('📊 Smoke Test Results:');
+            console.log('Total Stages:', report.summary.totalStages);
+            console.log('Passed Stages:', report.summary.passedStages);
+            console.log('Failed Stages:', report.summary.failedStages);
+            console.log('Overall Success:', report.summary.overallSuccess);
+            
+            if (!report.summary.overallSuccess) {
+              console.log('❌ Smoke test validation failed');
+              process.exit(1);
+            }
+            
+            console.log('✅ Smoke test validation passed');
+          "
+          
+      - name: Run Jest Validation Tests
+        run: |
+          echo "🧪 Running Jest validation tests..."
+          npm test -- __tests__/pipeline.smoke.test.ts --verbose
+          echo "✅ Jest validation tests passed"
+          
+      - name: Upload Smoke Test Artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smoke-test-artifacts
+          path: |
+            ${{ env.SMOKE_OUTPUT_DIR }}/
+            !${{ env.SMOKE_OUTPUT_DIR }}/**/*.png
+          retention-days: 30
+          
+      - name: Upload Smoke Test Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smoke-test-report
+          path: ${{ env.SMOKE_OUTPUT_DIR }}/smoke-test-report.json
+          retention-days: 90
+          
+      - name: Cleanup
+        if: always()
+        run: |
+          # Stop CrewAI service
+          if [ ! -z "$CREWAI_PID" ]; then
+            kill $CREWAI_PID || true
+          fi
+          
+          # Clean up large files
+          find $SMOKE_OUTPUT_DIR -name "*.png" -size +1M -delete || true
+          
+          echo "✅ Cleanup completed"
+          
+      - name: Smoke Test Summary
+        if: always()
+        run: |
+          echo "## 🧪 Design Pipeline Smoke Test Summary" >> $GITHUB_STEP_SUMMARY
+          
+          if [ -f "$SMOKE_OUTPUT_DIR/smoke-test-report.json" ]; then
+            node -e "
+              const fs = require('fs');
+              const report = JSON.parse(fs.readFileSync('$SMOKE_OUTPUT_DIR/smoke-test-report.json', 'utf8'));
+              
+              console.log('| Stage | Status | Time |');
+              console.log('|-------|--------|------|');
+              
+              report.results.forEach(result => {
+                const status = result.success ? '✅ PASS' : '❌ FAIL';
+                const time = result.executionTime + 'ms';
+                console.log('| ' + result.stage + ' | ' + status + ' | ' + time + ' |');
+              });
+              
+              console.log('');
+              console.log('**Overall Result:** ' + (report.summary.overallSuccess ? '✅ PASSED' : '❌ FAILED'));
+              console.log('**Stages Passed:** ' + report.summary.passedStages + '/' + report.summary.totalStages);
+            " >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ Smoke test report not generated" >> $GITHUB_STEP_SUMMARY
+          fi 

@@ -11,7 +11,13 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:ci": "jest --ci --coverage --watchAll=false",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "design-pipeline": "ts-node scripts/run-design-pipeline.ts",
+    "design-pipeline:mood": "ts-node scripts/run-design-pipeline.ts https://mood.com",
+    "design-pipeline:parallel": "ts-node scripts/run-design-pipeline.ts https://mood.com --parallel",
+    "design-pipeline:quick": "ts-node scripts/run-design-pipeline.ts https://mood.com --skip-steps=8",
+    "design-pipeline:smoke": "ts-node scripts/smoke-test.ts",
+    "crew:health": "curl -f http://localhost:8001/health || echo 'CrewAI service not running'"
   },
   "repository": {
     "type": "git",
