@@ -1,0 +1,238 @@
+name: Design-to-Code Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_site:
+        description: 'Target website to analyze (e.g., https://mood.com)'
+        required: true
+        default: 'https://mood.com'
+        type: string
+      
+      output_directory:
+        description: 'Output directory for generated files'
+        required: false
+        default: './design_output'
+        type: string
+      
+      skip_steps:
+        description: 'Comma-separated steps to skip (1-8)'
+        required: false
+        default: ''
+        type: string
+      
+      parallel_execution:
+        description: 'Run steps 4-5 in parallel'
+        required: false
+        default: false
+        type: boolean
+      
+      crewai_service_url:
+        description: 'CrewAI service URL'
+        required: false
+        default: 'http://localhost:8001'
+        type: string
+
+  # Allow manual trigger with repository_dispatch
+  repository_dispatch:
+    types: [design-pipeline]
+
+jobs:
+  design-analysis:
+    name: Run Design-to-Code Pipeline
+    runs-on: ubuntu-latest
+    
+    # Set a longer timeout for the entire job (2 hours)
+    timeout-minutes: 120
+    
+    steps:
+      - name: 📁 Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          
+      - name: 🐍 Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          
+      - name: 📦 Install Node.js Dependencies
+        run: npm ci
+        
+      - name: 🛠️ Install Python Dependencies
+        run: |
+          pip install crewai
+          pip install crewai-tools
+          pip install playwright
+          pip install opencv-python
+          pip install pillow
+          
+      - name: 🎭 Install Playwright Browsers
+        run: playwright install chromium
+        
+      - name: 🚀 Start CrewAI Service
+        run: |
+          # Start the CrewAI Python service in the background
+          python -m crewai.server --port 8001 &
+          
+          # Wait for service to be ready
+          timeout 60 bash -c 'until curl -f http://localhost:8001/health; do sleep 2; done'
+        env:
+          CREWAI_API_KEY: ${{ secrets.CREWAI_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          
+      - name: 🎨 Run Design-to-Code Pipeline
+        run: |
+          # Prepare arguments
+          ARGS="${{ github.event.inputs.target_site || 'https://mood.com' }}"
+          
+          if [ -n "${{ github.event.inputs.output_directory }}" ]; then
+            ARGS="$ARGS --output-dir=${{ github.event.inputs.output_directory }}"
+          fi
+          
+          if [ -n "${{ github.event.inputs.skip_steps }}" ]; then
+            ARGS="$ARGS --skip-steps=${{ github.event.inputs.skip_steps }}"
+          fi
+          
+          if [ "${{ github.event.inputs.parallel_execution }}" = "true" ]; then
+            ARGS="$ARGS --parallel"
+          fi
+          
+          # Run the pipeline
+          npx ts-node scripts/run-design-pipeline.ts $ARGS
+        env:
+          CREWAI_API_KEY: ${{ secrets.CREWAI_API_KEY }}
+          CREWAI_SERVICE_URL: ${{ github.event.inputs.crewai_service_url || 'http://localhost:8001' }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          
+      - name: 📊 Upload Pipeline Results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: design-pipeline-results
+          path: |
+            ${{ github.event.inputs.output_directory || './design_output' }}/**/*
+            !${{ github.event.inputs.output_directory || './design_output' }}/**/*.tmp
+          retention-days: 30
+          
+      - name: 📋 Upload Summary Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pipeline-summary
+          path: ${{ github.event.inputs.output_directory || './design_output' }}/PIPELINE_SUMMARY.md
+          retention-days: 90
+          
+      - name: 🔍 Archive Screenshots
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: baseline-screenshots
+          path: ${{ github.event.inputs.output_directory || './design_output' }}/screenshots/**/*
+          retention-days: 365 # Keep screenshots for a full year
+          
+      - name: 💾 Archive Microtasks
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cursor-microtasks
+          path: ${{ github.event.inputs.output_directory || './design_output' }}/cursor_tasks/**/*
+          retention-days: 90
+          
+      - name: 📈 Generate Pipeline Metrics
+        if: always()
+        run: |
+          # Create a metrics file for monitoring
+          cat > pipeline_metrics.json << EOF
+          {
+            "timestamp": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
+            "target_site": "${{ github.event.inputs.target_site || 'https://mood.com' }}",
+            "workflow_run_id": "${{ github.run_id }}",
+            "workflow_run_number": "${{ github.run_number }}",
+            "status": "${{ job.status }}",
+            "parallel_execution": ${{ github.event.inputs.parallel_execution || false }},
+            "skip_steps": "${{ github.event.inputs.skip_steps || '' }}"
+          }
+          EOF
+          
+      - name: 📊 Upload Metrics
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pipeline-metrics
+          path: pipeline_metrics.json
+          retention-days: 90
+
+  visual-regression-setup:
+    name: Setup Visual Regression Testing
+    runs-on: ubuntu-latest
+    needs: design-analysis
+    if: always() && needs.design-analysis.result == 'success'
+    
+    steps:
+      - name: 📁 Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: 📁 Download Baseline Screenshots
+        uses: actions/download-artifact@v4
+        with:
+          name: baseline-screenshots
+          path: ./baseline_screenshots
+          
+      - name: 🔧 Setup Visual Regression Tools
+        run: |
+          # Install Percy CLI for visual testing
+          npm install -g @percy/cli
+          
+          # Install Chromatic for Storybook visual testing
+          npm install -g chromatic
+          
+      - name: 📝 Generate Visual Test Configuration
+        run: |
+          # Generate Percy configuration
+          cat > .percy.yml << EOF
+          version: 2
+          snapshot:
+            widths: [375, 768, 1024, 1920]
+            minimum-height: 1024
+            percy-css: |
+              /* Hide dynamic content */
+              [data-testid="timestamp"] { visibility: hidden; }
+              [data-testid="dynamic-content"] { visibility: hidden; }
+          discovery:
+            allowed-hostnames:
+              - localhost
+              - 127.0.0.1
+          EOF
+          
+          # Generate Playwright visual test config
+          cat > playwright-visual.config.ts << EOF
+          import { defineConfig } from '@playwright/test';
+          
+          export default defineConfig({
+            testDir: './visual-tests',
+            use: {
+              baseURL: 'http://localhost:3000',
+              screenshot: 'only-on-failure',
+            },
+            projects: [
+              { name: 'chromium', use: { ...devices['Desktop Chrome'] } },
+              { name: 'webkit', use: { ...devices['Desktop Safari'] } },
+              { name: 'Mobile Chrome', use: { ...devices['Pixel 5'] } },
+            ],
+          });
+          EOF
+          
+      - name: 📤 Upload Visual Test Config
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-test-config
+          path: |
+            .percy.yml
+            playwright-visual.config.ts
+          retention-days: 30 
