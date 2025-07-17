@@ -263,6 +263,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
             <p>&copy; 2024 GSI Orders. All rights reserved.</p>
+            <div className="mt-2 text-xs text-gray-500">
+              Build: {process.env.NEXT_PUBLIC_COMMIT_HASH || 'dev-build'} | {new Date().toISOString()}
+            </div>
           </div>
         </div>
       </footer>
