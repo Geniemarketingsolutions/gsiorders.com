@@ -1,0 +1,27 @@
+{
+  "typography": {
+    "fontFamily": {
+      "display": "Editorial New, \"Times New Roman\", serif",
+      "sans": "Work Sans, Arial, sans-serif"
+    },
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "lineHeight": "1.5"
+  },
+  "colors": {
+    "background": "#ffffff",
+    "primary": "#123822",
+    "secondary": "#ffffff",
+    "accent": "#816CFF"
+  },
+  "borders": {
+    "borderRadius": "8px",
+    "boxShadow": "0 2px 4px rgba(0,0,0,0.1)"
+  },
+  "buttons": {
+    "background": "#4CAF50",
+    "color": "#ffffff",
+    "padding": "10px 20px",
+    "borderRadius": "4px"
+  }
+} 
