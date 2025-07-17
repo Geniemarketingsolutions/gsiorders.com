@@ -1,0 +1,58 @@
+{
+  "page": "/",
+  "site": "https://mood.com",
+  "components": [
+    {
+      "type": "header",
+      "content": "Navigation with logo and menu",
+      "position": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 80
+      }
+    },
+    {
+      "type": "hero",
+      "content": "Large hero section with CTA",
+      "position": {
+        "x": 0,
+        "y": 80,
+        "width": 1920,
+        "height": 600
+      }
+    },
+    {
+      "type": "features",
+      "content": "Product showcase grid",
+      "position": {
+        "x": 0,
+        "y": 680,
+        "width": 1920,
+        "height": 400
+      }
+    },
+    {
+      "type": "testimonials",
+      "content": "Customer testimonials",
+      "position": {
+        "x": 0,
+        "y": 1080,
+        "width": 1920,
+        "height": 300
+      }
+    },
+    {
+      "type": "footer",
+      "content": "Footer with links and info",
+      "position": {
+        "x": 0,
+        "y": 1380,
+        "width": 1920,
+        "height": 200
+      }
+    }
+  ],
+  "extracted_at": "2025-07-17T01:49:01.810Z",
+  "confidence": 0.89
+}

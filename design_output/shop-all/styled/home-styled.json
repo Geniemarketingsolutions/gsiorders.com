@@ -1,0 +1,40 @@
+{
+  "page": "/",
+  "site": "https://mood.com",
+  "brand": "gsiorders",
+  "theme": {
+    "primary": "#10b981",
+    "secondary": "#ec4899",
+    "accent": "#6366f1",
+    "neutral": "#6b7280"
+  },
+  "components": [
+    {
+      "type": "header",
+      "styling": "bg-white shadow-sm border-b",
+      "content": "GSI Orders Navigation with brand colors"
+    },
+    {
+      "type": "hero",
+      "styling": "bg-gradient-to-br from-brand-primary to-brand-secondary text-white",
+      "content": "Hero section with gradient background and CTAs"
+    },
+    {
+      "type": "features",
+      "styling": "bg-gray-50 py-16",
+      "content": "Product grid with brand theming"
+    },
+    {
+      "type": "testimonials",
+      "styling": "bg-white py-12",
+      "content": "Customer testimonials with brand accents"
+    },
+    {
+      "type": "footer",
+      "styling": "bg-gray-900 text-white",
+      "content": "Footer with GSI Orders branding"
+    }
+  ],
+  "generated_at": "2025-07-17T01:49:01.813Z",
+  "confidence": 0.92
+}
