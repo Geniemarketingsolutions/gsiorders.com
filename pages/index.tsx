@@ -97,12 +97,12 @@ const HomePage: React.FC = () => {
   ];
 
   const categories = [
-    { name: 'Flower', icon: '🌿', count: '120+ products' },
-    { name: 'Edibles', icon: '🍯', count: '85+ products' },
-    { name: 'Concentrates', icon: '💎', count: '45+ products' },
-    { name: 'Topicals', icon: '🧴', count: '30+ products' },
-    { name: 'Accessories', icon: '🔧', count: '60+ products' },
-    { name: 'Wellness', icon: '🧘', count: '25+ products' }
+    { name: 'Flower', icon: '🌿', count: '120+ products', href: '/products?category=flower', image: '/images/category-flower.jpg' },
+    { name: 'Edibles', icon: '🍯', count: '85+ products', href: '/products?category=edibles', image: '/images/category-edibles.jpg' },
+    { name: 'Concentrates', icon: '💎', count: '45+ products', href: '/products?category=concentrates', image: '/images/category-concentrates.jpg' },
+    { name: 'Topicals', icon: '🧴', count: '30+ products', href: '/products?category=topicals', image: '/images/category-topicals.jpg' },
+    { name: 'Accessories', icon: '🔧', count: '60+ products', href: '/products?category=accessories', image: '/images/category-accessories.jpg' },
+    { name: 'Wellness', icon: '🧘', count: '25+ products', href: '/products?category=wellness', image: '/images/category-wellness.jpg' }
   ];
 
   return (
@@ -119,15 +119,15 @@ const HomePage: React.FC = () => {
 
       <div className="min-h-screen bg-gray-50" data-testid="homepage">
         {/* Navigation */}
-        <Navbar />
+        <Navbar withMegaMenu />
 
         {/* Hero Section */}
         <section className="pt-16" data-testid="hero-section">
           <HeroSection
-            title="Premium Cannabis & Wellness"
-            subtitle="Discover curated products from our trusted brands"
-            showTrustIndicators={true}
-            showCTA={true}
+            title="Premium Cannabis & Wellness Products"
+            subtitle="Discover our curated selection from trusted brands"
+            backgroundImage="/images/hero-background.jpg"  // Add actual image path
+            className="bg-cover bg-center min-h-[80vh]"
           />
         </section>
 
@@ -150,33 +150,16 @@ const HomePage: React.FC = () => {
                   className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow duration-300"
                   data-testid={`product-${product.id}`}
                 >
-                  <div className="aspect-square bg-gray-100 relative">
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute top-3 left-3">
-                      <span className="px-2 py-1 bg-brand-primary text-white text-xs font-medium rounded-full">
-                        {product.category}
-                      </span>
-                    </div>
-                  </div>
-                  
-                  <div className="p-4">
-                    <h3 className="font-semibold text-gray-900 mb-2">{product.name}</h3>
-                    <p className="text-sm text-gray-600 mb-3 line-clamp-2">
-                      {product.description}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-lg font-bold text-brand-primary">
-                        ${product.price.toFixed(2)}
-                      </span>
-                      <button 
-                        className="bg-brand-primary hover:bg-brand-primary/90 text-white px-4 py-2 rounded-md font-medium transition-colors"
-                      >
-                        Add to Cart
-                      </button>
+                  <div className="relative rounded-xl overflow-hidden shadow-lg group">
+                    <img src={product.image} alt={product.name} className="w-full h-48 object-cover group-hover:scale-105 transition-transform" />
+                    <div className="p-4">
+                      <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">{product.category}</span>
+                      <h3 className="mt-2 font-semibold">{product.name}</h3>
+                      <p className="text-sm text-gray-600">{product.description}</p>
+                      <div className="mt-2 flex justify-between items-center">
+                        <span className="font-bold">${product.price.toFixed(2)}</span>
+                        <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Add to Cart</button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -198,31 +181,18 @@ const HomePage: React.FC = () => {
         {/* Shop by Category */}
         <section className="py-16 bg-gray-50" data-testid="shop-by-category">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
-                Shop by Category
-              </h2>
-              <p className="mt-4 text-lg text-gray-600">
-                Find exactly what you're looking for
-              </p>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-              {categories.map((category) => (
-                <Link
-                  key={category.name}
-                  href={`/products?category=${category.name.toLowerCase()}`}
-                  className="group"
-                >
-                  <div className="bg-white rounded-xl p-6 text-center shadow-sm border border-gray-100 hover:shadow-md hover:border-brand-primary transition-all duration-300">
-                    <div className="text-3xl mb-3">{category.icon}</div>
-                    <h3 className="font-semibold text-gray-900 group-hover:text-brand-primary transition-colors">
-                      {category.name}
-                    </h3>
-                    <p className="text-sm text-gray-500 mt-1">{category.count}</p>
-                  </div>
-                </Link>
-              ))}
+            <div className="my-12">
+              <h2 className="text-3xl font-bold text-center mb-6">Shop by Category</h2>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                {categories.map((category) => (
+                  <Link key={category.name} href={category.href} className="relative rounded-lg overflow-hidden group">
+                    <img src={category.image} alt={category.name} className="w-full h-32 object-cover group-hover:scale-105 transition-transform" />
+                    <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                      <span className="text-white font-semibold">{category.name}</span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </section>

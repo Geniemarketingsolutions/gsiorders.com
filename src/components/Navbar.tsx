@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
+import { ChevronDown } from 'lucide-react';
 
 const Navbar: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -38,6 +39,33 @@ const Navbar: React.FC = () => {
                 {item.label}
               </Link>
             ))}
+            {/* Add mega-menu dropdown */}
+            <div className="group relative">
+              <button className="flex items-center">Shop <ChevronDown size={16} /></button>
+              <div className="absolute left-0 mt-2 hidden group-hover:block bg-white shadow-lg rounded-lg p-4">
+                <div className="grid grid-cols-3 gap-4">
+                  <div>
+                    <h4 className="font-bold">Categories</h4>
+                    <ul>
+                      <li><Link href="/products?category=flower">Flower</Link></li>
+                      <li><Link href="/products?category=edibles">Edibles</Link></li>
+                      {/* Add more categories */}
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 className="font-bold">Brands</h4>
+                    <ul>
+                      <li><Link href="/liquidheaven">Liquid Heaven</Link></li>
+                      <li><Link href="/motaquila">Motaquila</Link></li>
+                      <li><Link href="/lastgenie">Last Genie</Link></li>
+                    </ul>
+                  </div>
+                  <div>
+                    <img src="/images/shop-promo.jpg" alt="Featured Promo" className="rounded" />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Cart and Mobile Menu */}
